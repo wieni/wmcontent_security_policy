@@ -1,0 +1,13 @@
+services:
+    wmcontent_security_policy.kernel.subscriber:
+        class: Drupal\wmcontent_security_policy\EventSubscriber\KernelSubscriber
+        tags: [{ name: event_subscriber }]
+        arguments:
+            - '@wmcontent_security_policy.content_security_policy'
+            - '@current_route_match'
+            - '@router.admin_context'
+
+    wmcontent_security_policy.content_security_policy:
+        class: Drupal\wmcontent_security_policy\Service\ContentSecurityPolicyService
+        arguments:
+            - '@state'

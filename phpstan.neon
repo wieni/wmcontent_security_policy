@@ -1,0 +1,11 @@
+parameters:
+    fileExtensions:
+        - inc
+        - install
+        - module
+    paths:
+        - src
+
+includes:
+	- vendor/wieni/wmcodestyle/phpstan/custom-rules.neon
+	- vendor/wieni/wmcodestyle/phpstan/drupal-module.neon

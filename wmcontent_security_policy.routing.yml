@@ -1,0 +1,9 @@
+wmcontent_security_policy.content_security_policy:
+    path: '/admin/config/system/content-security'
+    defaults:
+        _form: 'Drupal\wmcontent_security_policy\Form\ContentSecurityPolicyForm'
+        _title: 'Content Security Policy'
+    requirements:
+        _permission: 'access administration pages'
+    options:
+        _admin_route: TRUE
