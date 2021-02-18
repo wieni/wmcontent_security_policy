@@ -101,7 +101,7 @@ class ContentSecurityPolicyService
     public function setSources(string $directive, array $sources = []): void
     {
         if (!empty($sources)) {
-            $sources = array_diff($sources, array_values(self::getDefaultSources()[$directive]));
+//            $sources = array_diff($sources, array_values(self::getDefaultSources()[$directive]));
         }
 
         $this->state->set(self::STATE_KEY_PREFIX . '.' . $directive, $sources);

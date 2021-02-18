@@ -1,0 +1,24 @@
+<?php
+
+use Drupal\wmcontent_security_policy\Service\ContentSecurityPolicyService;
+
+/**
+ * Update the structure of existing directive sources
+ */
+function wmcontent_security_policy_update_8001(): void
+{
+    /** @var ContentSecurityPolicyService $service */
+    $service = \Drupal::service('wmcontent_security_policy.content_security_policy');
+
+    foreach (array_keys(ContentSecurityPolicyService::POLICY_DIRECTIVES) as $directive) {
+        $service->setSources(
+            $directive,
+            array_map(
+                static function (string $source) {
+                    return ['source' => $source, 'comment' => ''];
+                },
+                $service->getSources($directive)
+            )
+        );
+    }
+}

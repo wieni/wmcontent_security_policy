@@ -4,4 +4,4 @@ description: Secure your site using a Content Security Policy header
 core_version_requirement: ^8.8 || ^9
 package: Wieni
 dependencies:
-    - wmcontroller
+  - multivalue_form_element

@@ -11,17 +11,31 @@
     ],
     "require": {
         "php": "^7.2 || ^8.0",
-        "drupal/core": "^8.5 || ^9.0"
+        "drupal/core": "^8.5 || ^9.0",
+        "drupal/multivalue_form_element": "dev-3199142-drupal-9-compatibility"
     },
     "require-dev": {
         "ergebnis/composer-normalize": "^2.0",
         "wieni/wmcodestyle": "^1.1"
+    },
+    "extra": {
+        "patches": {
+            "drupal/multivalue_form_element": {
+                "#3199172 Handle default values of nested elements": "https://git.drupalcode.org/project/multivalue_form_element/-/merge_requests/2.patch"
+            }
+        }
     },
     "autoload-dev": {
         "psr-4": {
             "Drupal\\wmcontent_security_policy\\": "src/"
         }
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://git.drupalcode.org/issue/multivalue_form_element-3199142.git"
+        }
+    ],
     "scripts": {
         "coding-standards": [
             "@composer normalize",

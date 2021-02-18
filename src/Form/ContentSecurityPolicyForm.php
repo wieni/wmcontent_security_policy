@@ -12,12 +12,6 @@ class ContentSecurityPolicyForm extends FormBase
     /** @var ContentSecurityPolicyService */
     protected $service;
 
-    public function __construct(
-        ContentSecurityPolicyService $service
-    ) {
-        $this->service = $service;
-    }
-
     public static function create(ContainerInterface $container)
     {
         $instance = parent::create($container);
@@ -61,11 +55,30 @@ class ContentSecurityPolicyForm extends FormBase
             ];
 
             $form[$directive]['custom'] = [
-                '#type' => 'textfield',
+                '#type' => 'multivalue',
                 '#title' => 'Custom sources',
                 '#description' => 'A space-separated list of additional sources to allow.',
-                '#default_value' => implode(' ', $this->service->getSources($directive)),
-                '#maxlength' => 1000,
+                '#default_value' => array_map(
+                    static function (array $source): array { return ['container' => $source]; },
+                    $this->service->getSources($directive)
+                ),
+            ];
+
+            $form[$directive]['custom']['container'] = [
+                '#type' => 'container',
+                '#attributes' => ['class' => ['form-items-inline']],
+            ];
+
+            $form[$directive]['custom']['container']['source'] = [
+                '#type' => 'textfield',
+                '#title' => 'Source to allow',
+                '#size' => 50,
+            ];
+
+            $form[$directive]['custom']['container']['comment'] = [
+                '#type' => 'textfield',
+                '#title' => 'Comment',
+                '#size' => 50,
             ];
         }
 
@@ -80,11 +93,12 @@ class ContentSecurityPolicyForm extends FormBase
     public function submitForm(array &$form, FormStateInterface $formState): void
     {
         foreach (array_keys(ContentSecurityPolicyService::POLICY_DIRECTIVES) as $directive) {
-            if ($value = $formState->getValue([$directive, 'custom'])) {
-                $sources = explode(' ', $value);
-                $sources = array_map('trim', $sources);
-                $this->service->setSources($directive, $sources);
-            }
+            $sources = array_map(
+                static function (array $source) { return $source['container']; },
+                $formState->getValue([$directive, 'custom'])
+            );
+
+            $this->service->setSources($directive, $sources);
         }
 
         drupal_flush_all_caches();
