@@ -2,12 +2,13 @@
 
 namespace Drupal\wmcontent_security_policy\Form;
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\wmcontent_security_policy\Service\ContentSecurityPolicyService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class ContentSecurityPolicyForm extends FormBase
+class CustomSourcesForm extends FormBase
 {
     /** @var ContentSecurityPolicyService */
     protected $service;
@@ -22,7 +23,7 @@ class ContentSecurityPolicyForm extends FormBase
 
     public function getFormId(): string
     {
-        return 'wmcontent_security_policy_content_security_policy_form';
+        return 'wmcontent_security_policy_custom_sources_form';
     }
 
     public function buildForm(array $form, FormStateInterface $form_state): array
@@ -41,15 +42,18 @@ class ContentSecurityPolicyForm extends FormBase
                 '#type' => 'details',
                 '#group' => 'tabs',
                 '#title' => $directive,
-                '#description' => $description,
+                '#description' => Html::escape($description),
                 '#tree' => true,
             ];
 
+            $defaultSources = $this->service->getDefaultSources($directive) ?? [];
+            $defaultSources = array_column($defaultSources, 'source');
+
             $form[$directive]['defaults'] = [
                 '#type' => 'textfield',
-                '#title' => 'Defaults',
+                '#title' => 'Default sources',
                 '#description' => 'Sources which are required for the website to function properly.',
-                '#default_value' => implode(' ', ContentSecurityPolicyService::getDefaultSources()[$directive] ?? []),
+                '#default_value' => implode(' ', $defaultSources),
                 '#disabled' => true,
                 '#maxlength' => 1000,
             ];
@@ -57,9 +61,9 @@ class ContentSecurityPolicyForm extends FormBase
             $form[$directive]['custom'] = [
                 '#type' => 'multivalue',
                 '#title' => 'Custom sources',
-                '#description' => 'A space-separated list of additional sources to allow.',
+                '#description' => 'Additional sources to allow.',
                 '#default_value' => array_map(
-                    static function (array $source): array { return ['container' => $source]; },
+                    static function (array $source) { return ['container' => $source]; },
                     $this->service->getSources($directive)
                 ),
             ];
@@ -84,7 +88,7 @@ class ContentSecurityPolicyForm extends FormBase
 
         $form['actions']['submit'] = [
             '#type' => 'submit',
-            '#value' => $this->t('Submit'),
+            '#value' => $this->t('Save'),
         ];
 
         return $form;

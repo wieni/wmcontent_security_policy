@@ -1,0 +1,38 @@
+default-src:
+  -
+    source: '''self'''
+    comment: 'Allow sources from the same origin'
+script-src:
+  -
+    source: '''self'''
+    comment: 'Allow sources from the same origin'
+style-src:
+  -
+    source: '''self'''
+    comment: 'Allow sources from the same origin'
+  -
+    source: '''unsafe-inline'''
+    comment: 'Allows the execution of all inline styles'
+img-src:
+  -
+    source: '''self'''
+    comment: 'Allow sources from the same origin'
+  -
+    source: 'data:'
+    comment: 'Allows data: URIs to be used as a content source'
+font-src:
+  -
+    source: '''self'''
+    comment: 'Allow sources from the same origin'
+frame-src:
+  -
+    source: '''self'''
+    comment: 'Allow sources from the same origin'
+connect-src:
+  -
+    source: '''self'''
+    comment: 'Allow sources from the same origin'
+worker-src:
+  -
+    source: '''self'''
+    comment: 'Allow sources from the same origin'

@@ -1,8 +1,18 @@
-wmcontent_security_policy.content_security_policy:
-    path: '/admin/config/system/content-security'
+wmcontent_security_policy.default_sources:
+    path: '/admin/config/system/content-security-policy/default-sources'
     defaults:
-        _form: 'Drupal\wmcontent_security_policy\Form\ContentSecurityPolicyForm'
-        _title: 'Content Security Policy'
+        _form: 'Drupal\wmcontent_security_policy\Form\DefaultSourcesForm'
+        _title: 'Default sources | Content Security Policy'
+    requirements:
+        _permission: 'access administration pages'
+    options:
+        _admin_route: TRUE
+
+wmcontent_security_policy.custom_sources:
+    path: '/admin/config/system/content-security-policy/custom-sources'
+    defaults:
+        _form: 'Drupal\wmcontent_security_policy\Form\CustomSourcesForm'
+        _title: 'Custom sources | Content Security Policy'
     requirements:
         _permission: 'access administration pages'
     options:

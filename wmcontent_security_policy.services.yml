@@ -10,4 +10,5 @@ services:
     wmcontent_security_policy.content_security_policy:
         class: Drupal\wmcontent_security_policy\Service\ContentSecurityPolicyService
         arguments:
+            - '@config.factory'
             - '@state'

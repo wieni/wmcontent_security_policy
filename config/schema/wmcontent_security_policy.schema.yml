@@ -1,0 +1,92 @@
+wmcontent_security_policy.default_sources:
+    type: config_object
+    label: Default sources
+    mapping:
+        default-src:
+            type: sequence
+            sequence:
+                type: mapping
+                mapping:
+                    source:
+                        type: string
+                        label: A source to allow
+                    comment:
+                        type: string
+                        label: A comment explaining the presence of this source
+        script-src:
+            type: sequence
+            sequence:
+                type: mapping
+                mapping:
+                    source:
+                        type: string
+                        label: A source to allow
+                    comment:
+                        type: string
+                        label: A comment explaining the presence of this source
+        style-src:
+            type: sequence
+            sequence:
+                type: mapping
+                mapping:
+                    source:
+                        type: string
+                        label: A source to allow
+                    comment:
+                        type: string
+                        label: A comment explaining the presence of this source
+        img-src:
+            type: sequence
+            sequence:
+                type: mapping
+                mapping:
+                    source:
+                        type: string
+                        label: A source to allow
+                    comment:
+                        type: string
+                        label: A comment explaining the presence of this source
+        font-src:
+            type: sequence
+            sequence:
+                type: mapping
+                mapping:
+                    source:
+                        type: string
+                        label: A source to allow
+                    comment:
+                        type: string
+                        label: A comment explaining the presence of this source
+        frame-src:
+            type: sequence
+            sequence:
+                type: mapping
+                mapping:
+                    source:
+                        type: string
+                        label: A source to allow
+                    comment:
+                        type: string
+                        label: A comment explaining the presence of this source
+        connect-src:
+            type: sequence
+            sequence:
+                type: mapping
+                mapping:
+                    source:
+                        type: string
+                        label: A source to allow
+                    comment:
+                        type: string
+                        label: A comment explaining the presence of this source
+        worker-src:
+            type: sequence
+            sequence:
+                type: mapping
+                mapping:
+                    source:
+                        type: string
+                        label: A source to allow
+                    comment:
+                        type: string
+                        label: A comment explaining the presence of this source
