@@ -100,7 +100,7 @@ class ContentSecurityPolicyService
 
     public function addScriptHash(string $hash): void
     {
-        if (!in_array($hash, $this->scriptHashes, true)) {
+        if (in_array($hash, $this->scriptHashes, true)) {
             return;
         }
 

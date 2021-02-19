@@ -12,3 +12,9 @@ services:
         arguments:
             - '@config.factory'
             - '@state'
+
+    wmcontent_security_policy.script_hash.twig_extension:
+        class: Drupal\wmcontent_security_policy\Twig\Extension\ContentSecurityPolicyScriptHash
+        arguments:
+            - '@wmcontent_security_policy.content_security_policy'
+        tags: [{ name: twig.extension }]
