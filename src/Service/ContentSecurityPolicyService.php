@@ -4,6 +4,9 @@ namespace Drupal\wmcontent_security_policy\Service;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\State\StateInterface;
+use Drupal\wmcontent_security_policy\Event\SourcesAlterEvent;
+use Drupal\wmcontent_security_policy\ContentSecurityPolicyEvents;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ContentSecurityPolicyService
 {
@@ -20,6 +23,8 @@ class ContentSecurityPolicyService
         'worker-src' => 'Specifies valid sources for Worker, SharedWorker, or ServiceWorker scripts.',
     ];
 
+    /** @var EventDispatcherInterface */
+    protected $eventDispatcher;
     /** @var ConfigFactoryInterface */
     protected $configFactory;
     /** @var StateInterface */
@@ -28,9 +33,11 @@ class ContentSecurityPolicyService
     protected $scriptHashes = [];
 
     public function __construct(
+        EventDispatcherInterface $eventDispatcher,
         ConfigFactoryInterface $configFactory,
         StateInterface $state
     ) {
+        $this->eventDispatcher = $eventDispatcher;
         $this->configFactory = $configFactory;
         $this->state = $state;
     }
@@ -38,8 +45,8 @@ class ContentSecurityPolicyService
     public function getDefaultSources(string $directive): array
     {
         return $this->configFactory
-                ->get('wmcontent_security_policy.default_sources')
-                ->get($directive) ?? [];
+            ->get('wmcontent_security_policy.default_sources')
+            ->get($directive) ?? [];
     }
 
     public function setDefaultSources(string $directive, array $sources = []): void
@@ -92,8 +99,21 @@ class ContentSecurityPolicyService
                 continue;
             }
 
-            $directives[] = $key . ' ' . implode(' ', $sources);
+            $directives[$key] = $sources;
         }
+
+        $this->eventDispatcher->dispatch(
+            ContentSecurityPolicyEvents::SOURCES_ALTER,
+            new SourcesAlterEvent($directives)
+        );
+
+        $directives = array_map(
+            static function (string $key, array $sources) {
+                return $key . ' ' . implode(' ', $sources);
+            },
+            array_keys($directives),
+            array_values($directives)
+        );
 
         return implode('; ', $directives);
     }
