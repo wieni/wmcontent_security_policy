@@ -4,8 +4,8 @@ namespace Drupal\wmcontent_security_policy\Service;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\State\StateInterface;
-use Drupal\wmcontent_security_policy\Event\SourcesAlterEvent;
 use Drupal\wmcontent_security_policy\ContentSecurityPolicyEvents;
+use Drupal\wmcontent_security_policy\Event\SourcesAlterEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ContentSecurityPolicyService
@@ -108,7 +108,7 @@ class ContentSecurityPolicyService
         );
 
         $directives = array_map(
-            static function (string $key, array $sources) {
+            static function (string $key, array $sources): string {
                 return $key . ' ' . implode(' ', $sources);
             },
             array_keys($directives),

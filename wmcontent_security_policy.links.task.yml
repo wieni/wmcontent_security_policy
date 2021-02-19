@@ -1,0 +1,11 @@
+wmcontent_security_policy.default_sources:
+    route_name: wmcontent_security_policy.default_sources
+    title: 'Default sources'
+    base_route: wmcontent_security_policy.custom_sources
+    weight: 1
+
+wmcontent_security_policy.custom_sources:
+    route_name: wmcontent_security_policy.custom_sources
+    title: 'Custom sources'
+    base_route: wmcontent_security_policy.custom_sources
+    weight: 2
