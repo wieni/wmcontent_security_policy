@@ -47,6 +47,8 @@ class DefaultSourcesForm extends BaseSourcesForm
                 $this->service->getDefaultSources($directive)
             ),
             '#disabled' => !$this->canEdit(),
+            /** This property is added by @see https://www.drupal.org/project/drupal/issues/2264739 */
+            '#orderable' => false,
         ];
     }
 }

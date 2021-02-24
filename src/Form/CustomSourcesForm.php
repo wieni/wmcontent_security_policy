@@ -46,6 +46,8 @@ class CustomSourcesForm extends BaseSourcesForm
                 $this->service->getSources($directive)
             ),
             '#disabled' => !$this->canEdit(),
+            /** This property is added by @see https://www.drupal.org/project/drupal/issues/2264739 */
+            '#orderable' => false,
         ];
     }
 }
