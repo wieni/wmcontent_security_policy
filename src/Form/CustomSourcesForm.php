@@ -22,7 +22,7 @@ class CustomSourcesForm extends BaseSourcesForm
         foreach (array_keys(ContentSecurityPolicyService::POLICY_DIRECTIVES) as $directive) {
             $sources = array_map(
                 static function (array $source) { return $source['container']; },
-                $formState->getValue([$directive, 'custom'])
+                $formState->getValue([$directive, 'sources'])
             );
 
             $this->service->setSources($directive, $sources);
