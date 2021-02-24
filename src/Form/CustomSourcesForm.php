@@ -17,6 +17,18 @@ class CustomSourcesForm extends BaseSourcesForm
         return $this->currentUser()->hasPermission('administer custom content security policy sources');
     }
 
+    public function buildForm(array $form, FormStateInterface $form_state): array
+    {
+        $form = parent::buildForm($form, $form_state);
+
+        $form['intro']['sources'] = [
+            '#markup' => 'Using this form, you can add custom sources to the different policy directives. Sources you 
+            add here are stored in the database and will not be exported with configuration.',
+        ];
+
+        return $form;
+    }
+
     public function submitForm(array &$form, FormStateInterface $formState): void
     {
         foreach (array_keys(ContentSecurityPolicyService::POLICY_DIRECTIVES) as $directive) {
@@ -37,8 +49,6 @@ class CustomSourcesForm extends BaseSourcesForm
     {
         return [
             '#type' => 'multivalue',
-            '#title' => 'Custom sources',
-            '#description' => 'Additional sources to allow.',
             '#default_value' => array_map(
                 static function (array $source): array {
                     return ['container' => $source];
@@ -46,7 +56,6 @@ class CustomSourcesForm extends BaseSourcesForm
                 $this->service->getSources($directive)
             ),
             '#disabled' => !$this->canEdit(),
-            /** This property is added by @see https://www.drupal.org/project/drupal/issues/2264739 */
             '#orderable' => false,
         ];
     }

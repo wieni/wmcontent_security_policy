@@ -27,9 +27,14 @@ abstract class BaseSourcesForm extends FormBase
 
     public function buildForm(array $form, FormStateInterface $form_state): array
     {
+        $form['#attributes']['class'][] = 'wmcontent-security-policy-form';
+        $form['#attached']['library'][] = 'wmcontent_security_policy/form_summaries';
+
         $form['intro'] = [
-            '#markup' => '<p>The HTTP Content-Security-Policy response header allows web site administrators to control resources the user agent is allowed to load for a given page. With a few exceptions, policies mostly involve specifying server origins and script endpoints. This helps guard against cross-site scripting attacks (XSS).
+            'about_csp' => [
+                '#markup' => '<p>The HTTP Content-Security-Policy response header allows web site administrators to control resources the user agent is allowed to load for a given page. With a few exceptions, policies mostly involve specifying server origins and script endpoints. This helps guard against cross-site scripting attacks (XSS).
                 <br><br>For more information, see also <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy">the MDN web docs</a>.</p><br>',
+            ],
         ];
 
         $form['tabs'] = [
@@ -41,7 +46,9 @@ abstract class BaseSourcesForm extends FormBase
                 '#type' => 'details',
                 '#group' => 'tabs',
                 '#title' => $directive,
-                '#description' => Html::escape($description),
+                '#attributes' => [
+                    'data-description' => $this->t(Html::escape($description)),
+                ],
                 '#tree' => true,
             ];
 
@@ -54,7 +61,7 @@ abstract class BaseSourcesForm extends FormBase
 
             $form[$directive]['sources']['container']['source'] = [
                 '#type' => 'textfield',
-                '#title' => 'Source to allow',
+                '#title' => 'Source',
                 '#size' => 50,
             ];
 

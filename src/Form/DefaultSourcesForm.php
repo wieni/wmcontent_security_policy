@@ -17,6 +17,18 @@ class DefaultSourcesForm extends BaseSourcesForm
         return $this->currentUser()->hasPermission('administer default content security policy sources');
     }
 
+    public function buildForm(array $form, FormStateInterface $form_state): array
+    {
+        $form = parent::buildForm($form, $form_state);
+
+        $form['intro']['sources'] = [
+            '#markup' => 'Using this form, you can set default sources for the different policy directives. These 
+            sources should be required for the website to function properly. Sources you add here are stored in configuration.',
+        ];
+
+        return $form;
+    }
+
     public function submitForm(array &$form, FormStateInterface $formState): void
     {
         foreach (array_keys(ContentSecurityPolicyService::POLICY_DIRECTIVES) as $directive) {
@@ -37,9 +49,6 @@ class DefaultSourcesForm extends BaseSourcesForm
     {
         return [
             '#type' => 'multivalue',
-            '#title' => 'Default sources',
-            '#description' => 'Sources which are required for the website to function properly.',
-            '#add_more_label' => 'Add another source',
             '#default_value' => array_map(
                 static function (array $source): array {
                     return ['container' => $source];

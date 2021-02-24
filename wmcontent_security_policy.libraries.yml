@@ -1,0 +1,9 @@
+form_summaries:
+    version: 1.0
+    js:
+        js/form-summaries.js: { }
+    dependencies:
+        - core/jquery
+        - core/drupal
+        - core/drupalSettings
+        - core/drupal.form
