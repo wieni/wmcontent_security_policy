@@ -5,14 +5,14 @@ namespace Drupal\wmcontent_security_policy\EventSubscriber;
 use Drupal\Core\Cache\CacheableResponseInterface;
 use Drupal\Core\Routing\AdminContext;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\wmcontent_security_policy\Service\ContentSecurityPolicyService;
+use Drupal\wmcontent_security_policy\Service\ContentSecurityPolicyInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class KernelSubscriber implements EventSubscriberInterface
 {
-    /** @var ContentSecurityPolicyService */
+    /** @var ContentSecurityPolicyInterface */
     protected $contentSecurityPolicy;
     /** @var RouteMatchInterface */
     protected $routeMatch;
@@ -20,11 +20,11 @@ class KernelSubscriber implements EventSubscriberInterface
     protected $adminContext;
 
     public function __construct(
-        ContentSecurityPolicyService $contentSecurityPolicyService,
+        ContentSecurityPolicyInterface $contentSecurityPolicy,
         RouteMatchInterface $routeMatch,
         AdminContext $adminContext
     ) {
-        $this->contentSecurityPolicy = $contentSecurityPolicyService;
+        $this->contentSecurityPolicy = $contentSecurityPolicy;
         $this->routeMatch = $routeMatch;
         $this->adminContext = $adminContext;
     }

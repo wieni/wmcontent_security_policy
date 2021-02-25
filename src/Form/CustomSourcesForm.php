@@ -4,7 +4,7 @@ namespace Drupal\wmcontent_security_policy\Form;
 
 use Drupal\Core\Cache\CacheTagsInvalidatorInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\wmcontent_security_policy\Service\ContentSecurityPolicyService;
+use Drupal\wmcontent_security_policy\Service\ContentSecurityPolicyInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class CustomSourcesForm extends BaseSourcesForm
@@ -44,13 +44,13 @@ class CustomSourcesForm extends BaseSourcesForm
 
     public function submitForm(array &$form, FormStateInterface $formState): void
     {
-        foreach (array_keys(ContentSecurityPolicyService::POLICY_DIRECTIVES) as $directive) {
+        foreach (array_keys(ContentSecurityPolicyInterface::POLICY_DIRECTIVES) as $directive) {
             $sources = array_map(
                 static function (array $source) { return $source['container']; },
                 $formState->getValue([$directive, 'sources'])
             );
 
-            $this->service->setSources($directive, $sources);
+            $this->contentSecurityPolicy->setSources($directive, $sources);
         }
 
         $this->messenger()->addStatus('Successfully saved custom sources.');
@@ -68,7 +68,7 @@ class CustomSourcesForm extends BaseSourcesForm
                 static function (array $source): array {
                     return ['container' => $source];
                 },
-                $this->service->getSources($directive)
+                $this->contentSecurityPolicy->getSources($directive)
             ),
             '#disabled' => !$this->canEdit(),
             '#orderable' => false,

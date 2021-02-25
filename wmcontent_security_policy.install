@@ -1,16 +1,16 @@
 <?php
 
-use Drupal\wmcontent_security_policy\Service\ContentSecurityPolicyService;
+use Drupal\wmcontent_security_policy\Service\ContentSecurityPolicyInterface;
 
 /**
  * Update the structure of existing directive sources
  */
 function wmcontent_security_policy_update_8001(): void
 {
-    /** @var ContentSecurityPolicyService $service */
+    /** @var ContentSecurityPolicyInterface $service */
     $service = \Drupal::service('wmcontent_security_policy.content_security_policy');
 
-    foreach (array_keys(ContentSecurityPolicyService::POLICY_DIRECTIVES) as $directive) {
+    foreach (array_keys(ContentSecurityPolicyInterface::POLICY_DIRECTIVES) as $directive) {
         $service->setSources(
             $directive,
             array_map(

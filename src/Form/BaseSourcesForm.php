@@ -5,18 +5,18 @@ namespace Drupal\wmcontent_security_policy\Form;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\wmcontent_security_policy\Service\ContentSecurityPolicyService;
+use Drupal\wmcontent_security_policy\Service\ContentSecurityPolicyInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 abstract class BaseSourcesForm extends FormBase
 {
-    /** @var ContentSecurityPolicyService */
-    protected $service;
+    /** @var ContentSecurityPolicyInterface */
+    protected $contentSecurityPolicy;
 
     public static function create(ContainerInterface $container)
     {
         $instance = parent::create($container);
-        $instance->service = $container->get('wmcontent_security_policy.content_security_policy');
+        $instance->contentSecurityPolicy = $container->get('wmcontent_security_policy.content_security_policy');
 
         return $instance;
     }
@@ -41,7 +41,7 @@ abstract class BaseSourcesForm extends FormBase
             '#type' => 'vertical_tabs',
         ];
 
-        foreach (ContentSecurityPolicyService::POLICY_DIRECTIVES as $directive => $description) {
+        foreach (ContentSecurityPolicyInterface::POLICY_DIRECTIVES as $directive => $description) {
             $form[$directive] = [
                 '#type' => 'details',
                 '#group' => 'tabs',

@@ -2,19 +2,19 @@
 
 namespace Drupal\wmcontent_security_policy\Twig\Extension;
 
-use Drupal\wmcontent_security_policy\Service\ContentSecurityPolicyService;
+use Drupal\wmcontent_security_policy\Service\ContentSecurityPolicyInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 class ContentSecurityPolicyScriptHash extends AbstractExtension
 {
-    /** @var ContentSecurityPolicyService */
-    protected $service;
+    /** @var ContentSecurityPolicyInterface */
+    protected $contentSecurityPolicy;
 
     public function __construct(
-        ContentSecurityPolicyService $service
+        ContentSecurityPolicyInterface $contentSecurityPolicy
     ) {
-        $this->service = $service;
+        $this->contentSecurityPolicy = $contentSecurityPolicy;
     }
 
     public function getFunctions(): array
@@ -26,6 +26,6 @@ class ContentSecurityPolicyScriptHash extends AbstractExtension
 
     public function addCspHash(string $hash): void
     {
-        $this->service->addScriptHash($hash);
+        $this->contentSecurityPolicy->addScriptHash($hash);
     }
 }

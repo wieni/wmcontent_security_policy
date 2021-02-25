@@ -3,7 +3,7 @@
 namespace Drupal\wmcontent_security_policy\Form;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\wmcontent_security_policy\Service\ContentSecurityPolicyService;
+use Drupal\wmcontent_security_policy\Service\ContentSecurityPolicyInterface;
 
 class DefaultSourcesForm extends BaseSourcesForm
 {
@@ -31,13 +31,13 @@ class DefaultSourcesForm extends BaseSourcesForm
 
     public function submitForm(array &$form, FormStateInterface $formState): void
     {
-        foreach (array_keys(ContentSecurityPolicyService::POLICY_DIRECTIVES) as $directive) {
+        foreach (array_keys(ContentSecurityPolicyInterface::POLICY_DIRECTIVES) as $directive) {
             $sources = array_map(
                 static function (array $source) { return $source['container']; },
                 $formState->getValue([$directive, 'sources'])
             );
 
-            $this->service->setDefaultSources($directive, $sources);
+            $this->contentSecurityPolicy->setDefaultSources($directive, $sources);
         }
 
         $this->messenger()->addStatus('Successfully saved default sources.');
@@ -51,7 +51,7 @@ class DefaultSourcesForm extends BaseSourcesForm
                 static function (array $source): array {
                     return ['container' => $source];
                 },
-                $this->service->getDefaultSources($directive)
+                $this->contentSecurityPolicy->getDefaultSources($directive)
             ),
             '#disabled' => !$this->canEdit(),
             /** This property is added by @see https://www.drupal.org/project/drupal/issues/2264739 */

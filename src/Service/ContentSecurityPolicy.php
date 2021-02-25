@@ -8,20 +8,9 @@ use Drupal\wmcontent_security_policy\ContentSecurityPolicyEvents;
 use Drupal\wmcontent_security_policy\Event\SourcesAlterEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class ContentSecurityPolicyService
+class ContentSecurityPolicy implements ContentSecurityPolicyInterface
 {
-    public const STATE_KEY_PREFIX = 'wmcontent_security_policy.content_security_policy';
-
-    public const POLICY_DIRECTIVES = [
-        'default-src' => 'A fallback for other resource types when they don\'t have policies of their own',
-        'script-src' => 'Specifies valid sources for JavaScript',
-        'style-src' => 'Specifies valid sources for sources for stylesheets',
-        'img-src' => 'Specifies valid sources of images and favicons',
-        'font-src' => 'Specifies valid sources for fonts loaded using @font-face',
-        'frame-src' => 'Specifies valid sources for nested browsing contexts loading using elements such as <iframe>',
-        'connect-src' => 'Restricts the URLs which can be loaded using script interfaces such as <a>, Fetch and XMLHttpRequest',
-        'worker-src' => 'Specifies valid sources for Worker, SharedWorker, or ServiceWorker scripts.',
-    ];
+    protected const STATE_KEY_PREFIX = 'wmcontent_security_policy.content_security_policy';
 
     /** @var EventDispatcherInterface */
     protected $eventDispatcher;
