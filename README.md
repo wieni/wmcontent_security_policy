@@ -19,7 +19,7 @@ This package requires PHP 7.2 and Drupal 8 or higher. It can be
 installed using Composer:
 
 ```bash
- composer require wieni/wmcontent_security_policy
+ composer require wieni/wmcontent_security_policy drupal/multivalue_form_element:dev-3199142-drupal-9-compatibility"
 ```
 
 ### Patches
