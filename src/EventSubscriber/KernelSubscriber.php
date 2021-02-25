@@ -2,6 +2,7 @@
 
 namespace Drupal\wmcontent_security_policy\EventSubscriber;
 
+use Drupal\Core\Cache\CacheableResponseInterface;
 use Drupal\Core\Routing\AdminContext;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\wmcontent_security_policy\Service\ContentSecurityPolicyService;
@@ -46,5 +47,12 @@ class KernelSubscriber implements EventSubscriberInterface
             'content-security-policy',
             $this->contentSecurityPolicy->getHeader()
         );
+
+        if ($response instanceof CacheableResponseInterface) {
+            $response->getCacheableMetadata()->addCacheTags([
+                'config:wmcontent_security_policy.default_sources',
+                'wmcontent_security_policy.custom_sources',
+            ]);
+        }
     }
 }

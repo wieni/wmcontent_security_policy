@@ -2,11 +2,24 @@
 
 namespace Drupal\wmcontent_security_policy\Form;
 
+use Drupal\Core\Cache\CacheTagsInvalidatorInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\wmcontent_security_policy\Service\ContentSecurityPolicyService;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class CustomSourcesForm extends BaseSourcesForm
 {
+    /** @var CacheTagsInvalidatorInterface */
+    protected $cacheTagsInvalidator;
+
+    public static function create(ContainerInterface $container)
+    {
+        $instance = parent::create($container);
+        $instance->cacheTagsInvalidator = $container->get('cache_tags.invalidator');
+
+        return $instance;
+    }
+
     public function getFormId(): string
     {
         return 'wmcontent_security_policy_custom_sources_form';
@@ -40,9 +53,11 @@ class CustomSourcesForm extends BaseSourcesForm
             $this->service->setSources($directive, $sources);
         }
 
-        $this->messenger()->addStatus('Successfully saved custom sources. All caches are rebuilt.');
+        $this->messenger()->addStatus('Successfully saved custom sources.');
 
-        drupal_flush_all_caches();
+        $this->cacheTagsInvalidator->invalidateTags([
+            'wmcontent_security_policy.custom_sources',
+        ]);
     }
 
     protected function getSourcesElement(string $directive): array

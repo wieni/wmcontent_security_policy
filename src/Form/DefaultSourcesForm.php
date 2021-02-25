@@ -40,9 +40,7 @@ class DefaultSourcesForm extends BaseSourcesForm
             $this->service->setDefaultSources($directive, $sources);
         }
 
-        $this->messenger()->addStatus('Successfully saved default sources. All caches are rebuilt.');
-
-        drupal_flush_all_caches();
+        $this->messenger()->addStatus('Successfully saved default sources.');
     }
 
     protected function getSourcesElement(string $directive): array
