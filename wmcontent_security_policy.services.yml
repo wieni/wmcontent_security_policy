@@ -8,7 +8,7 @@ services:
             - '@router.admin_context'
 
     wmcontent_security_policy.content_security_policy:
-        class: Drupal\wmcontent_security_policy\Service\ContentSecurityPolicyService
+        class: Drupal\wmcontent_security_policy\Service\ContentSecurityPolicy
         arguments:
             - '@event_dispatcher'
             - '@config.factory'
