@@ -22,7 +22,7 @@ class DefaultSourcesForm extends BaseSourcesForm
         $form = parent::buildForm($form, $form_state);
 
         $form['intro']['sources'] = [
-            '#markup' => 'Using this form, you can set default sources for the different policy directives. These 
+            '#markup' => 'Using this form, you can set default sources for the different policy directives. These
             sources should be required for the website to function properly. Sources you add here are stored in configuration.',
         ];
 

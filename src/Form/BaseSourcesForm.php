@@ -23,8 +23,6 @@ abstract class BaseSourcesForm extends FormBase
 
     abstract public function canEdit(): bool;
 
-    abstract protected function getSourcesElement(string $directive): array;
-
     public function buildForm(array $form, FormStateInterface $form_state): array
     {
         $form['#attributes']['class'][] = 'wmcontent-security-policy-form';
@@ -80,4 +78,6 @@ abstract class BaseSourcesForm extends FormBase
 
         return $form;
     }
+
+    abstract protected function getSourcesElement(string $directive): array;
 }

@@ -35,7 +35,7 @@ class CustomSourcesForm extends BaseSourcesForm
         $form = parent::buildForm($form, $form_state);
 
         $form['intro']['sources'] = [
-            '#markup' => 'Using this form, you can add custom sources to the different policy directives. Sources you 
+            '#markup' => 'Using this form, you can add custom sources to the different policy directives. Sources you
             add here are stored in the database and will not be exported with configuration.',
         ];
 
