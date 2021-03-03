@@ -1,7 +1,7 @@
 wmcontent_security_policy.content_security_policy:
     title: 'Content Security Policy'
     description: 'Change settings related to the Content Security Policy.'
-    route_name: '<nolink>'
+    route_name: wmcontent_security_policy.custom_sources
     parent: system.admin_config_system
 
 wmcontent_security_policy.default_sources:
