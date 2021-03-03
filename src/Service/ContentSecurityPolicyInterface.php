@@ -13,6 +13,7 @@ interface ContentSecurityPolicyInterface
         'frame-src' => 'Specifies valid sources for nested browsing contexts loading using elements such as <iframe>',
         'connect-src' => 'Restricts the URLs which can be loaded using script interfaces such as <a>, Fetch and XMLHttpRequest',
         'worker-src' => 'Specifies valid sources for Worker, SharedWorker, or ServiceWorker scripts.',
+        'object-src' => 'Specifies valid sources for the <object>, <embed>, and <applet> elements.',
     ];
 
     public function getDefaultSources(string $directive): array;
