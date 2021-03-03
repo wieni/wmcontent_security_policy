@@ -36,3 +36,7 @@ worker-src:
   -
     source: '''self'''
     comment: 'Allow sources from the same origin'
+object-src:
+  -
+    source: '''self'''
+    comment: 'Allow sources from the same origin'
