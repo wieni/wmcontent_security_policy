@@ -25,9 +25,9 @@ installed using Composer:
 ### Patches
 For this module to work, it is necessary to patch Drupal core and the 
 [Multi-value form element module](https://www.drupal.org/project/multivalue_form_element). If you manage your 
-installation with Composer, you should use the package to manage and automatically apply patches. If not,
-please check the [documentation](https://www.drupal.org/patch/apply) for
-instructions on how to manually apply patches.
+installation with Composer, you should use the [cweagans/composer-patches](https://github.com/cweagans/composer-patches) 
+package to manage and automatically apply patches. If not, please check the 
+[documentation](https://www.drupal.org/patch/apply) for instructions on how to manually apply patches.
 
 If the patches below don't apply to your package versions, you should visit the relevant issues and find older or newer
 patches.
@@ -39,7 +39,7 @@ patches.
         "composer-exit-on-patch-failure": true,
         "patches": {
             "drupal/core": {
-              "#2264739: Allow multiple field widgets to not use tabledrag": "https://www.drupal.org/files/issues/2020-07-07/2264739-94.patch"
+              "#2264739: Allow multiple field widgets to not use tabledrag": "https://www.drupal.org/files/issues/2021-01-23/2264739-105.patch"
             },
             "drupal/multivalue_form_element": {
               "#3199172 Handle default values of nested elements": "https://git.drupalcode.org/project/multivalue_form_element/-/merge_requests/2.patch",
