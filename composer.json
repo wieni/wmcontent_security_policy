@@ -41,7 +41,7 @@
         "composer-exit-on-patch-failure": true,
         "patches": {
             "drupal/core": {
-                "#2264739: Allow multiple field widgets to not use tabledrag": "https://www.drupal.org/files/issues/2021-01-23/2264739-105.patch"
+                "#2264739: Allow multiple field widgets to not use tabledrag": "https://www.drupal.org/files/issues/2021-12-02/2264739-116-9.3.x.patch"
             },
             "drupal/multivalue_form_element": {
                 "#3199172 Handle default values of nested elements": "https://git.drupalcode.org/project/multivalue_form_element/-/merge_requests/2.patch",
