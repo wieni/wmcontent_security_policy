@@ -70,6 +70,8 @@ abstract class BaseSourcesForm extends FormBase
             ];
         }
 
+        $this->addAdditionalElements($form);
+
         $form['actions']['submit'] = [
             '#type' => 'submit',
             '#value' => $this->t('Save'),
@@ -80,4 +82,5 @@ abstract class BaseSourcesForm extends FormBase
     }
 
     abstract protected function getSourcesElement(string $directive): array;
+    abstract protected function addAdditionalElements(array &$form): void;
 }

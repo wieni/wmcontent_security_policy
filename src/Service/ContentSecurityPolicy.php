@@ -116,4 +116,15 @@ class ContentSecurityPolicy implements ContentSecurityPolicyInterface
         $hash = trim($hash, '"\'');
         $this->scriptHashes[] = "'$hash'";
     }
+
+    public function getReportTo(): string
+    {
+        return $this->state->get(self::STATE_KEY_PREFIX . '.report-to' , '');
+    }
+
+    public function setReportTo(string $reportTo): void
+    {
+        $this->state->set(self::STATE_KEY_PREFIX . '.report-to', $reportTo);
+    }
+
 }

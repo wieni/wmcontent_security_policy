@@ -58,4 +58,6 @@ class DefaultSourcesForm extends BaseSourcesForm
             '#orderable' => false,
         ];
     }
+
+    protected function addAdditionalElements(array &$form): void {}
 }

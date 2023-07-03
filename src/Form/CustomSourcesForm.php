@@ -53,7 +53,9 @@ class CustomSourcesForm extends BaseSourcesForm
             $this->contentSecurityPolicy->setSources($directive, $sources);
         }
 
-        $this->messenger()->addStatus('Successfully saved custom sources.');
+        $reportTo = (string) $formState->getValue('report-to');
+        $this->contentSecurityPolicy->setReportTo($reportTo);
+        $this->messenger()->addStatus('Successfully saved custom sources and report-to endpoint.');
 
         $this->cacheTagsInvalidator->invalidateTags([
             'wmcontent_security_policy.custom_sources',
@@ -72,6 +74,16 @@ class CustomSourcesForm extends BaseSourcesForm
             ),
             '#disabled' => !$this->canEdit(),
             '#orderable' => false,
+        ];
+    }
+
+    protected function addAdditionalElements(array &$form): void
+    {
+        $form['report-to'] = [
+            '#type' => 'textfield',
+            '#title' => $this->t('Report-To'),
+            '#description' => $this->t('The URL to which the user agent should send reports when a content security policy is violated. Ex: "https://example.com/csp-reports"'),
+            '#default_value' => $this->contentSecurityPolicy->getReportTo(),
         ];
     }
 }
