@@ -91,6 +91,10 @@ class ContentSecurityPolicy implements ContentSecurityPolicyInterface
             $directives[$key] = $sources;
         }
 
+        if ($this->getReportTo()) {
+            $directives['report-to'] = [ContentSecurityPolicyInterface::REPORT_TO_CSP_ENDPOINT_NAME];
+        }
+
         $this->eventDispatcher->dispatch(
             ContentSecurityPolicyEvents::SOURCES_ALTER,
             new SourcesAlterEvent($directives)
@@ -117,12 +121,12 @@ class ContentSecurityPolicy implements ContentSecurityPolicyInterface
         $this->scriptHashes[] = "'$hash'";
     }
 
-    public function getReportTo(): string
+    public function getReportTo(): ?string
     {
-        return $this->state->get(self::STATE_KEY_PREFIX . '.report-to' , '');
+        return $this->state->get(self::STATE_KEY_PREFIX . '.report-to' , null);
     }
 
-    public function setReportTo(string $reportTo): void
+    public function setReportTo(?string $reportTo): void
     {
         $this->state->set(self::STATE_KEY_PREFIX . '.report-to', $reportTo);
     }

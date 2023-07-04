@@ -33,7 +33,7 @@ interface ContentSecurityPolicyInterface
 
     public function addScriptHash(string $hash): void;
 
-    public function getReportTo(): string;
+    public function getReportTo(): ?string;
 
-    public function setReportTo(string $url): void;
+    public function setReportTo(?string $url): void;
 }

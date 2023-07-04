@@ -53,7 +53,7 @@ class CustomSourcesForm extends BaseSourcesForm
             $this->contentSecurityPolicy->setSources($directive, $sources);
         }
 
-        $reportTo = (string) $formState->getValue('report-to');
+        $reportTo = $formState->getValue('report-to');
         $this->contentSecurityPolicy->setReportTo($reportTo);
         $this->messenger()->addStatus('Successfully saved custom sources and report-to endpoint.');
 

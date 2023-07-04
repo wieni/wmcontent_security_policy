@@ -43,10 +43,7 @@ class KernelSubscriber implements EventSubscriberInterface
         }
 
         $response = $event->getResponse();
-        $contentSecurityPolicy = $this->contentSecurityPolicy->getHeader();
-
         if ($reportTo = $this->contentSecurityPolicy->getReportTo()) {
-            $contentSecurityPolicy .= sprintf('; report-to %s', ContentSecurityPolicyInterface::REPORT_TO_CSP_ENDPOINT_NAME);
             $response->headers->set(
                 'reporting-endpoints',
                 sprintf('%s="%s"', ContentSecurityPolicyInterface::REPORT_TO_CSP_ENDPOINT_NAME, $reportTo)
@@ -55,7 +52,7 @@ class KernelSubscriber implements EventSubscriberInterface
 
         $response->headers->set(
             'content-security-policy',
-            $contentSecurityPolicy
+            $this->contentSecurityPolicy->getHeader()
         );
 
         if ($response instanceof CacheableResponseInterface) {
