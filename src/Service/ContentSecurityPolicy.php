@@ -91,8 +91,11 @@ class ContentSecurityPolicy implements ContentSecurityPolicyInterface
             $directives[$key] = $sources;
         }
 
-        if ($this->getReportTo()) {
+        if ($url = $this->getReportTo()) {
+            // report-to is currently not supported by all browsers
             $directives['report-to'] = [ContentSecurityPolicyInterface::REPORT_TO_CSP_ENDPOINT_NAME];
+            // report-uri is deprecated remove the line below when report-to is supported by enough browsers
+            $directives['report-uri'] = [$url];
         }
 
         $this->eventDispatcher->dispatch(
