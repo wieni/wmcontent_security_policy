@@ -6,6 +6,7 @@ interface ContentSecurityPolicyInterface
 {
     public const POLICY_DIRECTIVES = [
         'default-src' => 'A fallback for other resource types when they don\'t have policies of their own',
+        'media-src' => 'Specifies valid sources for loading media using the <audio> and <video> elements',
         'script-src' => 'Specifies valid sources for JavaScript',
         'style-src' => 'Specifies valid sources for sources for stylesheets',
         'img-src' => 'Specifies valid sources of images and favicons',
@@ -15,6 +16,8 @@ interface ContentSecurityPolicyInterface
         'worker-src' => 'Specifies valid sources for Worker, SharedWorker, or ServiceWorker scripts.',
         'object-src' => 'Specifies valid sources for the <object>, <embed>, and <applet> elements.',
     ];
+
+    public const REPORT_TO_CSP_ENDPOINT_NAME = 'csp-endpoint';
 
     public function getDefaultSources(string $directive): array;
 
@@ -29,4 +32,8 @@ interface ContentSecurityPolicyInterface
     public function getHeader(): string;
 
     public function addScriptHash(string $hash): void;
+
+    public function getReportTo(): ?string;
+
+    public function setReportTo(?string $url): void;
 }

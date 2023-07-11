@@ -43,6 +43,13 @@ class KernelSubscriber implements EventSubscriberInterface
         }
 
         $response = $event->getResponse();
+        if ($reportTo = $this->contentSecurityPolicy->getReportTo()) {
+            $response->headers->set(
+                'reporting-endpoints',
+                sprintf('%s="%s"', ContentSecurityPolicyInterface::REPORT_TO_CSP_ENDPOINT_NAME, $reportTo)
+            );
+        }
+
         $response->headers->set(
             'content-security-policy',
             $this->contentSecurityPolicy->getHeader()

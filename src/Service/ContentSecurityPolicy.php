@@ -91,6 +91,13 @@ class ContentSecurityPolicy implements ContentSecurityPolicyInterface
             $directives[$key] = $sources;
         }
 
+        if ($url = $this->getReportTo()) {
+            // report-to is currently not supported by all browsers
+            $directives['report-to'] = [ContentSecurityPolicyInterface::REPORT_TO_CSP_ENDPOINT_NAME];
+            // report-uri is deprecated remove the line below when report-to is supported by enough browsers
+            $directives['report-uri'] = [$url];
+        }
+
         $this->eventDispatcher->dispatch(
             ContentSecurityPolicyEvents::SOURCES_ALTER,
             new SourcesAlterEvent($directives)
@@ -116,4 +123,15 @@ class ContentSecurityPolicy implements ContentSecurityPolicyInterface
         $hash = trim($hash, '"\'');
         $this->scriptHashes[] = "'$hash'";
     }
+
+    public function getReportTo(): ?string
+    {
+        return $this->state->get(self::STATE_KEY_PREFIX . '.report-to' , null);
+    }
+
+    public function setReportTo(?string $reportTo): void
+    {
+        $this->state->set(self::STATE_KEY_PREFIX . '.report-to', $reportTo);
+    }
+
 }
