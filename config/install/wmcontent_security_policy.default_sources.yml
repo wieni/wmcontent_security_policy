@@ -2,6 +2,10 @@ default-src:
   -
     source: '''self'''
     comment: 'Allow sources from the same origin'
+media-src:
+  -
+    source: '''self'''
+    comment: 'Allow sources from the same origin'
 script-src:
   -
     source: '''self'''
