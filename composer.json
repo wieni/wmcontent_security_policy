@@ -9,10 +9,12 @@
             "email": "info@wieni.be"
         }
     ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
         "php": "^7.2 || ^8.0",
-        "drupal/core": "^8.5 || ^9.0",
-        "drupal/multivalue_form_element": "dev-3199142-drupal-9-compatibility",
+        "drupal/core": "^9.3 || ^10.0",
+        "drupal/multivalue_form_element": "dev-1.0.x",
         "cweagans/composer-patches": "^1.0"
     },
     "require-dev": {
@@ -41,7 +43,7 @@
         "composer-exit-on-patch-failure": true,
         "patches": {
             "drupal/core": {
-                "#2264739: Allow multiple field widgets to not use tabledrag": "https://www.drupal.org/files/issues/2021-12-02/2264739-116-9.3.x.patch"
+                "#2264739: Allow multiple field widgets to not use tabledrag": "https://www.drupal.org/files/issues/2023-02-03/2264739-130-9.5.x.patch"
             },
             "drupal/multivalue_form_element": {
                 "#3199172 Handle default values of nested elements": "https://git.drupalcode.org/project/multivalue_form_element/-/merge_requests/2.patch",
