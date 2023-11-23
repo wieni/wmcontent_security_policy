@@ -14,8 +14,7 @@
     "require": {
         "php": "^7.2 || ^8.0",
         "drupal/core": "^9.3 || ^10.0",
-        "drupal/multivalue_form_element": "dev-1.0.x",
-        "cweagans/composer-patches": "^1.0"
+        "drupal/multivalue_form_element": "^1 || ^1@beta"
     },
     "require-dev": {
         "ergebnis/composer-normalize": "^2.0",
@@ -33,12 +32,6 @@
             "phpstan analyse"
         ]
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://git.drupalcode.org/issue/multivalue_form_element-3199142.git"
-        }
-    ],
     "extra": {
         "composer-exit-on-patch-failure": true,
         "patches": {
@@ -46,7 +39,7 @@
                 "#2264739: Allow multiple field widgets to not use tabledrag": "https://www.drupal.org/files/issues/2023-02-03/2264739-130-9.5.x.patch"
             },
             "drupal/multivalue_form_element": {
-                "#3199172 Handle default values of nested elements": "https://git.drupalcode.org/project/multivalue_form_element/-/merge_requests/2.patch",
+                "#3199172 Handle default values of nested elements": "https://www.drupal.org/files/issues/2023-04-03/3199172-8.patch",
                 "#3199298 Don't add an empty element when the multivalue element is disabled": "https://git.drupalcode.org/project/multivalue_form_element/-/merge_requests/3.patch",
                 "#3200306 Add support for non-orderable multivalue form elements": "https://git.drupalcode.org/project/multivalue_form_element/-/commit/ef4d01ae56a809fc2349d8fec8185ace3b63d15d.patch"
             }
