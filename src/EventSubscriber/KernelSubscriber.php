@@ -7,7 +7,7 @@ use Drupal\Core\Routing\AdminContext;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\wmcontent_security_policy\Service\ContentSecurityPolicyInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class KernelSubscriber implements EventSubscriberInterface
@@ -36,7 +36,7 @@ class KernelSubscriber implements EventSubscriberInterface
         return $events;
     }
 
-    public function setContentSecurityPolicyHeader(FilterResponseEvent $event): void
+    public function setContentSecurityPolicyHeader(ResponseEvent $event): void
     {
         if ($this->adminContext->isAdminRoute($this->routeMatch->getRouteObject())) {
             return;

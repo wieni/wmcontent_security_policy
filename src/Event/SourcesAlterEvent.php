@@ -2,7 +2,7 @@
 
 namespace Drupal\wmcontent_security_policy\Event;
 
-use Symfony\Component\EventDispatcher\Event;
+use Drupal\Component\EventDispatcher\Event;
 
 class SourcesAlterEvent extends Event
 {

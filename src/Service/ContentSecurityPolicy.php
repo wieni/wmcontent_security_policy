@@ -99,8 +99,8 @@ class ContentSecurityPolicy implements ContentSecurityPolicyInterface
         }
 
         $this->eventDispatcher->dispatch(
+            new SourcesAlterEvent($directives),
             ContentSecurityPolicyEvents::SOURCES_ALTER,
-            new SourcesAlterEvent($directives)
         );
 
         $directives = array_map(
