@@ -51,24 +51,6 @@ patches.
 }
 ```
 
-### Composer repository
-As a temporary workaround to make the 
-[Multi-value form element module](https://www.drupal.org/project/multivalue_form_element) module work with Drupal 9, 
-you should add the following repository to your composer.json. Make sure to add it before the 
-`https://packages.drupal.org/8` repository, so this one takes precedence.
-
-```json
-// composer.json
-{
-    "repositories": [
-      {
-        "type": "vcs",
-        "url": "https://git.drupalcode.org/issue/multivalue_form_element-3199142.git"
-      }
-    ]
-}
-```
-
 ## How does it work?
 ### Managing default sources
 Using the form at `/admin/config/system/content-security-policy/default-sources`, you can set default sources for the 
